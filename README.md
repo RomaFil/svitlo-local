@@ -26,7 +26,39 @@ Clean room: зроблено лише за власною специфікаці
 | `power-guard/` | Сервіс для Proxmox-хоста: стежить за зарядкою, засинає, вимикається при розряді |
 | `firmware/` | Прошивка NodeMCU (ESP8266): пінг, точка налаштування, LCD, BME280, DS3231 |
 | `tools/emulator.py` | Емулятор ESP і power-guard для тестів без заліза |
+| `tools/lcd_preview.py` | Картинки екранів LCD 1602 з логіки `display.cpp` (потрібен Pillow) |
+| `docs/` | Картинки: екрани LCD і дашборду в різних станах |
 | `tests/` | Юніт-тести машин станів і API |
+
+## Як це виглядає
+
+### LCD 1602 на платі
+
+Усі екрани, які показує прошивка (`docs/lcd/`). Картинки генерує `python tools/lcd_preview.py`: це порт `compose()` з `display.cpp` з тими самими CGRAM-символами, тож після змін у дисплеї їх варто перегенерувати.
+
+![Усі екрани LCD](docs/lcd/all-screens.png)
+
+Цикл 12 с: 9 с великий годинник (двокрапка блимає раз на секунду), 3 с погода.
+
+![Цикл годинник → погода](docs/lcd/cycle.gif)
+
+### Дашборд
+
+Знімки на синтетичних даних (`docs/dashboard/`).
+
+| Стан | Знімок |
+|---|---|
+| Все гаразд, графік «Дім» | [01-normal-home.png](docs/dashboard/01-normal-home.png) |
+| Перемикач графіка на «Село» (жовте — світло було, не було зв'язку) | [02-switch-village.png](docs/dashboard/02-switch-village.png) |
+| Температура за тиждень + технічні події в журналі | [03-env-week-tech-log.png](docs/dashboard/03-env-week-tech-log.png) |
+| Попередній тиждень (◀) | [04-prev-week.png](docs/dashboard/04-prev-week.png) |
+| Село: немає сигналу | [05-village-offline.png](docs/dashboard/05-village-offline.png) |
+| Дім: працює від батареї | [06-home-on-battery.png](docs/dashboard/06-home-on-battery.png) |
+| Дім: сервер спить | [07-home-sleeping.png](docs/dashboard/07-home-sleeping.png) |
+| Дім вимкнувся через розряд + збирач не працює | [08-home-off-poller-dead.png](docs/dashboard/08-home-off-poller-dead.png) |
+| Телефон (390 px) | [10-mobile.png](docs/dashboard/10-mobile.png) |
+
+![Дашборд](docs/dashboard/01-normal-home.png)
 
 ## Встановлення
 
